@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="8.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="baseline.InventoryListController">
+   <children>
+      <HBox alignment="CENTER" spacing="8.0">
+         <children>
+            <VBox alignment="CENTER" spacing="8.0">
+               <children>
+                  <Label text="Search by Name" />
+                  <TextField fx:id="nameSearchTextField" onInputMethodTextChanged="#searchByName" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" spacing="8.0">
+               <children>
+                  <Label text="Search by Serial Number" />
+                  <TextField fx:id="serialNumberSearchTextField" onInputMethodTextChanged="#searchBySerialNumber" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER">
+         <children>
+            <TableView fx:id="InventoryTableView" onSort="#sortInventoryTableView">
+              <columns>
+                <TableColumn fx:id="serialNumberColumn" editable="false" prefWidth="100.0" text="Serial Number" />
+                <TableColumn fx:id="itemNameColumn" editable="false" minWidth="120.0" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="itemValueColumn" editable="false" prefWidth="75.0" text="Value" />
+              </columns>
+            </TableView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" spacing="8.0">
+         <children>
+            <VBox maxWidth="1.7976931348623157E308" spacing="8.0">
+               <children>
+                  <Button fx:id="removeItemsButton" mnemonicParsing="false" onAction="#removeAllItems" text="Remove all Items" />
+                  <Button fx:id="openFileButton" mnemonicParsing="false" onAction="#openNewInventoryList" text="Open File" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" spacing="8.0">
+               <children>
+                  <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addNewItem" text="Add New Item" />
+                  <Button fx:id="editSelectedButton" mnemonicParsing="false" onAction="#editSelectedItem" text="Edit Selected Item" />
+                  <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeInventoryList" text="Close" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" spacing="8.0">
+               <children>
+                  <Button fx:id="removeSelectedButton" mnemonicParsing="false" onAction="#removeSelectedItem" text="Remove Selected Item" />
+                  <Button fx:id="saveFileButton" mnemonicParsing="false" onAction="#saveInventoryToFile" text="Save File" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="8.0" right="8.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>
