@@ -29,11 +29,11 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <TableView fx:id="InventoryTableView" onSort="#sortInventoryTableView">
+            <TableView fx:id="inventoryTableView" onSort="#sortInventoryTableView" prefHeight="400.0" prefWidth="335.0">
               <columns>
-                <TableColumn fx:id="serialNumberColumn" editable="false" prefWidth="100.0" text="Serial Number" />
-                <TableColumn fx:id="itemNameColumn" editable="false" minWidth="120.0" prefWidth="75.0" text="Name" />
-                  <TableColumn fx:id="itemValueColumn" editable="false" prefWidth="75.0" text="Value" />
+                <TableColumn fx:id="serialNumberColumn" editable="false" prefWidth="131.0" text="Serial Number" />
+                <TableColumn fx:id="itemNameColumn" editable="false" minWidth="89.0" prefWidth="131.0" text="Name" />
+                  <TableColumn fx:id="itemValueColumn" editable="false" prefWidth="72.0" text="Value" />
               </columns>
             </TableView>
          </children>
