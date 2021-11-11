@@ -9,9 +9,15 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.Style;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class InventoryManagementApplication extends Application {
+    private InventoryListController inventoryListController;
+    Map<String, Stage> stages = new HashMap<>();
+
     public static void main(String[] args) {
         //launches the javafx application and calls the overridden start method
         launch(args);

@@ -32,7 +32,7 @@ public class Item {
     }
 
     public double getItemValue() {
-        return itemValue;
+        return Math.floor(itemValue * 100.00) / 100.00;
     }
 
     public void setItemValue(double itemValue) {
