@@ -94,32 +94,41 @@ public class FileIO {
     public void saveHTMLFile(File file, InventoryList inventoryList) {
         //use a file writer to write a html file giving the data in a tabular format
         final List<Item> itemList = inventoryList.getInventoryItems();
-        String table = table(
-                th(
-                      "Serial Number"
+        StringBuilder stringBuilder = new StringBuilder().append("background-color: #009879;\n").append("    color: #ffffff;\n").append("    text-align: left;");
+        String html = html(
+                head(
+                        meta().withCharset("utf-8"),
+                        title("Inventory List")
                 ),
-                th(
-                        "Item Name"
-                ),
-                th(
-                        "Item Value"
-                ),
-                tbody(
-                        each(itemList, item -> tr(
-                                td(
-                                        item.getSerialNumber()
-                                ),
-                                td(
-                                        item.getItemName()
-                                ),
-                                td(
-                                        String.format("%.2f", item.getItemValue())
-                                )
-                        ))
+                body(
+                        table(
+                                th(
+                                        "Serial Number"
+                                ).withStyle(stringBuilder.toString()),
+                                th(
+                                        "Item Name"
+                                ).withStyle(stringBuilder.toString()),
+                                th(
+                                        "Item Value"
+                                ).withStyle(stringBuilder.toString()),
+                                tbody(
+                                        each(itemList, item -> tr(
+                                                td(
+                                                        item.getSerialNumber()
+                                                ),
+                                                td(
+                                                        item.getItemName()
+                                                ),
+                                                td(
+                                                        String.format("%.2f", item.getItemValue())
+                                                )
+                                        ).withStyle("background-color: #f3f3f3;"))
+                                ).withStyle("border-bottom: 2px solid #009879;")
+                        ).withStyle(new StringBuilder().append("border-collapse: collapse;\n").append("    margin: 25px 0;\n").append("    font-size: 0.9em;\n").append("    font-family: sans-serif;\n").append("    min-width: 400px;\n").append("    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);").toString())
                 )
         ).renderFormatted();
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))){
-            bufferedWriter.write(table);
+            bufferedWriter.write("<!DOCTYPE html>\n" + html);
         } catch (IOException e) {
             System.out.println("Could not write HTML file.");
         }
