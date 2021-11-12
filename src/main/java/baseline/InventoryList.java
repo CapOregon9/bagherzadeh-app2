@@ -1,14 +1,12 @@
 package baseline;
 
-import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 public class InventoryList {
     //create an arraylist to store the items of the inventory
-    List<Item> inventoryItems = new ArrayList<>();
+    private List<Item> inventoryItems = new ArrayList<>();
 
     public void addItem(String itemName, String serialNumber, double itemValue) {
         //used to add an item to the list
@@ -65,9 +63,12 @@ public class InventoryList {
         inventoryItems.clear();
     }
 
-    public List<Item> getInventoryList() {
+    public List<Item> getInventoryItems() {
         //gives the list of items to implement file saving and file opening
         return inventoryItems;
     }
 
+    public void setInventoryItems(List<Item> inventoryItems) {
+        this.inventoryItems = inventoryItems;
+    }
 }

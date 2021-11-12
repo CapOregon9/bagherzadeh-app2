@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.Style;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -133,6 +134,27 @@ public class InventoryListController {
     void openNewInventoryList(ActionEvent event) {
         //call a method to open file depending on the file extension
         //method in class FileIO
+        FileIO fileIO = new FileIO();
+        fileChooser.setTitle("Open File");
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            if (fileChooser.getSelectedExtensionFilter().getExtensions().get(0).equals("*.html")) {
+                inventoryList = fileIO.openHTMLFile(file);
+                resetObservableList(inventoryList);
+            } else if (fileChooser.getSelectedExtensionFilter().getExtensions().get(0).equals("*.txt")) {
+                inventoryList = fileIO.openTSVFile(file);
+                resetObservableList(inventoryList);
+            } else {
+                inventoryList = fileIO.openJSONFile(file);
+                resetObservableList(inventoryList);
+            }
+        }
+    }
+
+    public void resetObservableList(InventoryList inventoryList) {
+        list.clear();
+        list.addAll(inventoryList.getInventoryItems());
     }
 
     @FXML
@@ -150,8 +172,7 @@ public class InventoryListController {
         //update observable list
         if (!inventoryTableView.getSelectionModel().isEmpty()) {
             inventoryList.removeItem(inventoryTableView.getSelectionModel().getSelectedItem().getSerialNumber());
-            list.clear();
-            list.addAll(inventoryList.getInventoryList());
+            resetObservableList(inventoryList);
         }
     }
 
@@ -159,11 +180,24 @@ public class InventoryListController {
     void saveInventoryToFile(ActionEvent event) {
         //call a method to save file depending on the file extension
         //method in class FileIO
+        FileIO fileIO = new FileIO();
+        fileChooser.setTitle("Save File");
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) {
+            if (fileChooser.getSelectedExtensionFilter().getExtensions().get(0).equals("*.html")) {
+                fileIO.saveHTMLFile(file, inventoryList);
+            } else if (fileChooser.getSelectedExtensionFilter().getExtensions().get(0).equals("*.txt")) {
+                fileIO.saveTSVFile(file, inventoryList);
+            } else {
+                fileIO.saveJSONFile(file, inventoryList);
+            }
+        }
     }
 
     public void serialNumberContained(String serialNumber) {
         List<Item> tempList = new ArrayList<>();
-        for (Item item : inventoryList.getInventoryList()) {
+        for (Item item : inventoryList.getInventoryItems()) {
             if (item.getSerialNumber().contains(serialNumber)) {
                 tempList.add(item);
             }
@@ -174,7 +208,7 @@ public class InventoryListController {
 
     public void itemNameContained(String itemName) {
         List<Item> tempList = new ArrayList<>();
-        for (Item item : inventoryList.getInventoryList()) {
+        for (Item item : inventoryList.getInventoryItems()) {
             if (item.getItemName().toLowerCase().contains(itemName.toLowerCase())) {
                 tempList.add(item);
             }
@@ -189,14 +223,12 @@ public class InventoryListController {
         serialNumberSearchRadioButton.setUserData("Serial");
 
         //initialize file chooser's extensions
-
-        //test value to validate working tableView
-        inventoryList.addItem("Name", "A-XXX-XXX-345", 99.99);
-        inventoryList.addItem("Zame", "B-XXX-XXX-X23", 99.99);
-        inventoryList.addItem("Aame", "C-X1X-X5X-X2X", 99.99);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TSV file", "*.txt"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("HTML File", "*.html"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON File", "*.json"));
 
         //Connect inventory list to observable list
-        list.addAll(inventoryList.getInventoryList());
+        list.addAll(inventoryList.getInventoryItems());
 
         //initialize table column cell factories to understand where the information is getting pulled
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("itemName"));
@@ -208,9 +240,6 @@ public class InventoryListController {
 
         //initialize tableview values by connecting the array list
         inventoryTableView.setItems(list);
-
-        //add listener to get selected inventory item from the table view
-
 
         //add listener to listen for a change in the item search text field
         //everytime a letter is entered, pull the string and check if the name contains the string
@@ -231,8 +260,7 @@ public class InventoryListController {
     public void inventoryListDataPass(InventoryList inventoryList) {
         //used to retrieve inventory data from other scenes when moving between them
         this.inventoryList = inventoryList;
-        list.clear();
-        list.addAll(inventoryList.getInventoryList());
+        resetObservableList(inventoryList);
     }
 
 }
