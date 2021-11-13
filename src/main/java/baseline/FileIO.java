@@ -94,7 +94,7 @@ public class FileIO {
     public void saveHTMLFile(File file, InventoryList inventoryList) {
         //use a file writer to write a html file giving the data in a tabular format
         final List<Item> itemList = inventoryList.getInventoryItems();
-        StringBuilder stringBuilder = new StringBuilder().append("background-color: #009879;\n").append("    color: #ffffff;\n").append("    text-align: left;");
+        StringBuilder stringBuilder = new StringBuilder().append("background-color: #AD03DE;\n").append("    color: #ffffff;\n").append("    text-align: left;");
         String html = html(
                 head(
                         meta().withCharset("utf-8"),
@@ -123,7 +123,7 @@ public class FileIO {
                                                         String.format("%s", item.getItemValue())
                                                 )
                                         ).withStyle("background-color: #f3f3f3;"))
-                                ).withStyle("border-bottom: 2px solid #009879;")
+                                ).withStyle("border-bottom: 2px solid #710793;")
                         ).withStyle(new StringBuilder().append("border-collapse: collapse;\n").append("    margin: 25px 0;\n").append("    font-size: 0.9em;\n").append("    font-family: sans-serif;\n").append("    min-width: 400px;\n").append("    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);").toString())
                 )
         ).renderFormatted();

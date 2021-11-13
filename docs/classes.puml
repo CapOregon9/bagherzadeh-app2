@@ -66,6 +66,7 @@ class InventoryListController {
     -ObservableList<Item>: list
     -FileChooser: fileChooser
     -Stage: stage
+    -Button: helpButton
     -TableView<Item>: inventoryTableView
     -Button: addItemButton
     -Button: closeButton
@@ -90,6 +91,7 @@ class InventoryListController {
     void: removeAllItems(ActionEvent)
     void: removeSelectedItem(ActionEvent)
     void: saveInventoryToFile(ActionEvent)
+    void: openUserGuide(ActionEvent)
 
     +void: serialNumberContained(String)
     +void: itemNameContained(String)

@@ -1,5 +1,7 @@
 package baseline;
 
+import com.sun.javafx.application.HostServicesDelegate;
+import javafx.application.HostServices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +22,7 @@ class InventoryListControllerTest {
         inventoryList.addItem("Name", "A-X1X-222-333", 45.00);
         inventoryList.addItem("Name2", "A-X1X-222-333", 48.00);
         inventoryList.addItem("Aame3", "A-X2X-222-333", 51.00);
-        inventoryListController.inventoryListDataPass(inventoryList);
+        inventoryListController.setInventoryList(inventoryList);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package baseline;
 
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,8 @@ public class AddInventoryItemController {
     @FXML
     private Button saveInventoryItemButton;
 
+    private HostServices hostServices;
+
     @FXML
     void saveInventoryItem(ActionEvent event) {
         //call method to validate inputs
@@ -58,7 +61,7 @@ public class AddInventoryItemController {
             System.out.println("Could not load item inventory list fxml.");
         }
         InventoryListController controller = fxmlLoader.getController();
-        controller.inventoryListDataPass(inventoryList);
+        controller.inventoryListDataPass(inventoryList, hostServices);
         Scene scene = new Scene(root);
         JMetro jMetro = new JMetro(Style.LIGHT);
         jMetro.setScene(scene);
@@ -71,8 +74,9 @@ public class AddInventoryItemController {
         newNameTextField.selectAll();
     }
 
-    public void inventoryListDataPass(InventoryList inventoryList) {
+    public void inventoryListDataPass(InventoryList inventoryList, HostServices hostServices) {
         //used to retrieve the inventory list from the main scene
         this.inventoryList = inventoryList;
+        this.hostServices = hostServices;
     }
 }

@@ -69,6 +69,7 @@
                <children>
                   <Button fx:id="removeSelectedButton" mnemonicParsing="false" onAction="#removeSelectedItem" text="Remove Selected Item" />
                   <Button fx:id="saveFileButton" mnemonicParsing="false" onAction="#saveInventoryToFile" text="Save File" />
+                  <Button fx:id="helpButton" mnemonicParsing="false" onAction="#openUserGuide" text="Help" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -79,7 +80,7 @@
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets left="8.0" right="8.0" />
+            <Insets bottom="8.0" left="8.0" right="8.0" />
          </padding>
       </HBox>
    </children>

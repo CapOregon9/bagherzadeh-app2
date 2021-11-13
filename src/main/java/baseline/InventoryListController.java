@@ -1,5 +1,6 @@
 package baseline;
 
+import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +32,9 @@ public class InventoryListController {
 
     //create stage variable to store the current stage
     Stage stage;
+
+    @FXML
+    private Button helpButton;
 
     @FXML
     private TableView<Item> inventoryTableView;
@@ -77,6 +81,8 @@ public class InventoryListController {
     @FXML
     private TableColumn<Item, String> serialNumberColumn;
 
+    private HostServices hostServices;
+
     @FXML
     void addNewItem(ActionEvent event) {
         //open scene to add an item
@@ -90,7 +96,7 @@ public class InventoryListController {
             System.out.println("Could not load add inventory item fxml.");
         }
         AddInventoryItemController controller = fxmlLoader.getController();
-        controller.inventoryListDataPass(inventoryList);
+        controller.inventoryListDataPass(inventoryList, hostServices);
         Scene scene = new Scene(root);
         JMetro jMetro = new JMetro(Style.LIGHT);
         jMetro.setScene(scene);
@@ -120,7 +126,7 @@ public class InventoryListController {
                 System.out.println("Could not load edit inventory item fxml.");
             }
             EditInventoryItemController controller = fxmlLoader.getController();
-            controller.inventoryListDataPass(inventoryList, inventoryTableView.getSelectionModel().getSelectedItem());
+            controller.inventoryListDataPass(inventoryList, inventoryTableView.getSelectionModel().getSelectedItem(), hostServices);
             Scene scene = new Scene(root);
             JMetro jMetro = new JMetro(Style.LIGHT);
             jMetro.setScene(scene);
@@ -195,6 +201,11 @@ public class InventoryListController {
         }
     }
 
+    @FXML
+    void openUserGuide(ActionEvent event) {
+        hostServices.showDocument("docs\\ItemInventoryUserGuide.pdf");
+    }
+
     public List<Item> serialNumberContained(String serialNumber) {
         List<Item> tempList = new ArrayList<>();
         for (Item item : inventoryList.getInventoryItems()) {
@@ -259,10 +270,20 @@ public class InventoryListController {
         });
     }
 
-    public void inventoryListDataPass(InventoryList inventoryList) {
+    public void inventoryListDataPass(InventoryList inventoryList, HostServices hostServices) {
         //used to retrieve inventory data from other scenes when moving between them
         this.inventoryList = inventoryList;
+        this.hostServices = hostServices;
         resetObservableList(inventoryList);
     }
 
+    public void setHostServices(HostServices hostServices) {
+        //used to be able to show user guide when clicking the help button
+        this.hostServices = hostServices;
+    }
+
+    public void setInventoryList(InventoryList inventoryList) {
+        //used for junit testing
+        this.inventoryList = inventoryList;
+    }
 }
