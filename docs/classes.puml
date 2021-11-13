@@ -15,11 +15,12 @@ class AddInventoryItemController {
     -TextField: newNameTextField
     -TextField: newSerialNumberTextField
     -Button: saveInventoryItemButton
+    -HostServices: hostServices
 
     void: saveInventoryItem(ActionEvent)
     +void: transitionToInventoryList(ActionEvent)
     +void: initialize()
-    +void: inventoryListDataPass(InventoryList)
+    +void: inventoryListDataPass(InventoryList, HostServices)
 }
 
 class EditInventoryItemController {
@@ -30,13 +31,14 @@ class EditInventoryItemController {
     -TextField: newSerialNumberTextField
     -Button: saveInventoryItemButton
     -Item: item
+    -HostServices: hostServices
 
     +EditInventoryItemController()
 
     void: saveInventoryItem(ActionEvent)
     +void: transitionToInventoryList(ActionEvent)
     +void: initialize()
-    +void: inventoryListDataPass(InventoryList, Item)
+    +void: inventoryListDataPass(InventoryList, Item, HostServices)
     +void: initializeFields()
 }
 
@@ -82,6 +84,7 @@ class InventoryListController {
     -Button: removeSelectedButton
     -Button: saveFileButton
     -tableColumn<Item, String> serialNUmberColumn
+    -HostServices: hostServices
 
     void: addNewItem(ActionEvent)
     void: closeInventoryList(ActionEvent)
@@ -96,7 +99,8 @@ class InventoryListController {
     +void: serialNumberContained(String)
     +void: itemNameContained(String)
     +void: initialize()
-    +void: inventoryListDataPass(InventoryList)
+    +void: inventoryListDataPass(InventoryList, HostServices)
+    +void: setHostServices(HostServices)
 }
 
 class InventoryManagementApplication {
@@ -105,6 +109,7 @@ class InventoryManagementApplication {
     Parent: root
     Scene: scene
     JMetro: jMetro
+    InventoryListController: inventoryListController
 }
 
 class Item {
