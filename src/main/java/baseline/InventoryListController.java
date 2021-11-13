@@ -48,7 +48,7 @@ public class InventoryListController {
     private TableColumn<Item, String> itemNameColumn;
 
     @FXML
-    private TableColumn<Item, Double> itemValueColumn;
+    private TableColumn<Item, String> itemValueColumn;
 
     @FXML
     private TextField searchTextField;
@@ -195,26 +195,24 @@ public class InventoryListController {
         }
     }
 
-    public void serialNumberContained(String serialNumber) {
+    public List<Item> serialNumberContained(String serialNumber) {
         List<Item> tempList = new ArrayList<>();
         for (Item item : inventoryList.getInventoryItems()) {
             if (item.getSerialNumber().contains(serialNumber)) {
                 tempList.add(item);
             }
         }
-        list.clear();
-        list.addAll(tempList);
+        return tempList;
     }
 
-    public void itemNameContained(String itemName) {
+    public List<Item> itemNameContained(String itemName) {
         List<Item> tempList = new ArrayList<>();
         for (Item item : inventoryList.getInventoryItems()) {
             if (item.getItemName().toLowerCase().contains(itemName.toLowerCase())) {
                 tempList.add(item);
             }
         }
-        list.clear();
-        list.addAll(tempList);
+        return tempList;
     }
 
     public void initialize() {
@@ -250,9 +248,13 @@ public class InventoryListController {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             String searchData = searchTextField.getText();
             if (searchToggleGroup.getSelectedToggle().getUserData().equals("Name")) {
-                itemNameContained(searchData);
+                List<Item> tempList = itemNameContained(searchData);
+                list.clear();
+                list.addAll(tempList);
             } else {
-                serialNumberContained(searchData);
+                List<Item> tempList = serialNumberContained(searchData);
+                list.clear();
+                list.addAll(tempList);
             }
         });
     }

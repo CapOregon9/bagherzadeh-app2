@@ -1,0 +1,5 @@
+Serial Number	Item Name	Item Value
+A-XXX-XXX-345	Name	$42.69
+B-XXX-XXX-X23	Zame	$58.58
+C-X1X-X5X-X2X	Aame	$99.99
+A-XXX-XXX-346	Hey	$12.00

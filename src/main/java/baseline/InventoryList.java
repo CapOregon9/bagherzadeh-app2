@@ -40,7 +40,7 @@ public class InventoryList {
         //can be the same serial number than itself due to being called from edit inventory item controller
         if (!serialNumber.equals(newSerialNumber)) {
             for (Item item : inventoryItems) {
-                if (item.getSerialNumber().equals(serialNumber)) {
+                if (item.getSerialNumber().equals(newSerialNumber)) {
                     return true;
                 }
             }
@@ -66,9 +66,5 @@ public class InventoryList {
     public List<Item> getInventoryItems() {
         //gives the list of items to implement file saving and file opening
         return inventoryItems;
-    }
-
-    public void setInventoryItems(List<Item> inventoryItems) {
-        this.inventoryItems = inventoryItems;
     }
 }

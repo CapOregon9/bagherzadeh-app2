@@ -31,8 +31,9 @@ public class Item {
         this.serialNumber = serialNumber;
     }
 
-    public double getItemValue() {
-        return Math.floor(itemValue * 100.00) / 100.00;
+    public String getItemValue() {
+        //formats as a monetary value for table and truncates off any parts lower than a cent that may have been added in by user
+        return String.format("%.2f", Math.floor(itemValue * 100.00) / 100.00);
     }
 
     public void setItemValue(double itemValue) {

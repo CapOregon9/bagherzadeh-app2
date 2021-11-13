@@ -1,0 +1,2 @@
+Serial Number	Item Name	Item Value
+A-XXX-XXX-XXX	Name	$12.00

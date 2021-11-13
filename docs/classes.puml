@@ -1,0 +1,128 @@
+@startuml
+AddInventoryItemController -- InventoryList
+AddInventoryItemController -- ItemValidation
+EditInventoryItemController -- InventoryList
+EditInventoryItemController -- ItemValidation
+InventoryListController -- InventoryList
+InventoryListController -- FileIo
+InventoryManagementApplication -- InventoryListController
+InventoryList -- Item
+
+class AddInventoryItemController {
+    -InventoryList: inventoryList
+    -ItemValidation: itemValidation
+    -TextField: newItemValueTextField
+    -TextField: newNameTextField
+    -TextField: newSerialNumberTextField
+    -Button: saveInventoryItemButton
+
+    void: saveInventoryItem(ActionEvent)
+    +void: transitionToInventoryList(ActionEvent)
+    +void: initialize()
+    +void: inventoryListDataPass(InventoryList)
+}
+
+class EditInventoryItemController {
+    -InventoryList: inventoryList
+    -ItemValidation: itemValidation
+    -TextField: newItemValueTextField
+    -TextField: newNameTextField
+    -TextField: newSerialNumberTextField
+    -Button: saveInventoryItemButton
+    -Item: item
+
+    +EditInventoryItemController()
+
+    void: saveInventoryItem(ActionEvent)
+    +void: transitionToInventoryList(ActionEvent)
+    +void: initialize()
+    +void: inventoryListDataPass(InventoryList, Item)
+    +void: initializeFields()
+}
+
+class FileIo {
+    +InventoryList: openJSONFile(File)
+    +InventoryList: openHTMLFile(File)
+    +InventoryList: openTSVFile(File)
+    +void: saveJSONFile(File, InventoryList)
+    +void: saveHTMLFile(File, InventoryList)
+    +void: saveTSVFile(File, InventoryList)
+}
+
+class InventoryList {
+    -List<Item>: inventoryItems
+
+    +void: addItem(String, String, double)
+    +void: editItem(String, String, String, double)
+    +boolean: itemExists(String)
+    +boolean: itemExists(String, String)
+    +void: removeItem(String)
+    +void: clearAllItems()
+    +List<Item>: getInventoryItems()
+}
+
+class InventoryListController {
+    -InventoryList: inventoryList
+    -ObservableList<Item>: list
+    -FileChooser: fileChooser
+    -Stage: stage
+    -TableView<Item>: inventoryTableView
+    -Button: addItemButton
+    -Button: closeButton
+    -Button: editSelectedButton
+    -TableColumn<Item, String>: itemNameColumn
+    -TableColumn<Item, String>: itemValueColumn
+    -TextField: searchTextField
+    -RadioButton: nameSearchRadioButton
+    -RadioButton: serialNumberSearchRadioButton
+    -ToggleGroup: searchToggleGroup
+    -Button: openFileButton
+    -Button: removeItemsButton
+    -Button: removeSelectedButton
+    -Button: saveFileButton
+    -tableColumn<Item, String> serialNUmberColumn
+
+    void: addNewItem(ActionEvent)
+    void: closeInventoryList(ActionEvent)
+    void: editSelectedItem(ActionEvent)
+    void: openNewInventoryList(ActionEvent)
+    void: resetObservableList(InventoryList)
+    void: removeAllItems(ActionEvent)
+    void: removeSelectedItem(ActionEvent)
+    void: saveInventoryToFile(ActionEvent)
+
+    +void: serialNumberContained(String)
+    +void: itemNameContained(String)
+    +void: initialize()
+    +void: inventoryListDataPass(InventoryList)
+}
+
+class InventoryManagementApplication {
+    main(String[])
+    void: start(Stage)
+    Parent: root
+    Scene: scene
+    JMetro: jMetro
+}
+
+class Item {
+    -String: itemName
+    -String serialNumber
+    -double itemValue
+
+    +Item(String, String, double)
+    +String: getItemName()
+    +String: getSerialNumber()
+    +String: getItemValue()
+    +void: setItemName(String)
+    +void: setSerialNumber(String)
+    +void: setItemValue(double)
+}
+
+class ItemValidation {
+    +boolean: itemValueValidation(String)
+    +boolean: serialNumberFormatCheck(String, InventoryList)
+    +boolean: serialNumberFormatCheck(String, String, InventoryList)
+    +boolean: itemNameLengthCheck(String)
+}
+@enduml

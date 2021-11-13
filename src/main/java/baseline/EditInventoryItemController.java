@@ -38,7 +38,6 @@ public class EditInventoryItemController {
 
     //create instance variable of serial number to store the selected inventory item
     private Item item;
-    private Map<String, Stage> stages = new HashMap<>();
 
     public EditInventoryItemController() {
         inventoryList = new InventoryList();
@@ -93,6 +92,6 @@ public class EditInventoryItemController {
     public void initializeFields() {
         newNameTextField.setText(item.getItemName());
         newSerialNumberTextField.setText(item.getSerialNumber());
-        newItemValueTextField.setText(String.valueOf(item.getItemValue()));
+        newItemValueTextField.setText(item.getItemValue());
     }
 }

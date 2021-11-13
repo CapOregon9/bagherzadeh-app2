@@ -19,7 +19,7 @@ public class FileIO {
     public InventoryList openJSONFile(File file) {
         //used to read a json file and pass the object back to the called class
         InventoryList inventoryList = new InventoryList();
-        try (Reader reader = new FileReader(file);){
+        try (Reader reader = new FileReader(file)){
             Gson gson = new Gson();
             inventoryList = gson.fromJson(reader, InventoryList.class);
         } catch (IOException e) {
@@ -70,7 +70,8 @@ public class FileIO {
             while (inputLine.hasNextLine()) {
                 fullLine = inputLine.nextLine();
                 String[] splitLine = fullLine.split("\t");
-                inventoryList.addItem(splitLine[1], splitLine[0], Double.parseDouble(splitLine[2]));
+                String value = splitLine[2].replace("$", "");
+                inventoryList.addItem(splitLine[1], splitLine[0], Double.parseDouble(value));
             }
         } catch (NoSuchElementException | IllegalStateException | FileNotFoundException e) {
             System.out.println("Could not read file.");
@@ -81,7 +82,6 @@ public class FileIO {
     public void saveJSONFile(File file, InventoryList inventoryList) {
         //save inventory list as a JSON file using a Google GSON
         Gson gson = new Gson();
-        System.out.println(inventoryList.getInventoryItems());
         try {
             Writer writer = new FileWriter(file);
             gson.toJson(inventoryList,writer);
@@ -120,7 +120,7 @@ public class FileIO {
                                                         item.getItemName()
                                                 ),
                                                 td(
-                                                        String.format("%.2f", item.getItemValue())
+                                                        String.format("%s", item.getItemValue())
                                                 )
                                         ).withStyle("background-color: #f3f3f3;"))
                                 ).withStyle("border-bottom: 2px solid #009879;")
@@ -140,7 +140,7 @@ public class FileIO {
         try (Formatter output = new Formatter(file)) {
             output.format("Serial Number\tItem Name\tItem Value%n");
             for (Item item : itemList) {
-                output.format("%s\t%s\t%.2f%n", item.getSerialNumber(), item.getItemName(), item.getItemValue());
+                output.format("%s\t%s\t$%s%n", item.getSerialNumber(), item.getItemName(), item.getItemValue());
             }
         } catch (IOException e) {
             System.out.println("Could not write CSV file.");
