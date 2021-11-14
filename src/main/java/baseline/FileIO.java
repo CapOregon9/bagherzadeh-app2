@@ -120,7 +120,7 @@ public class FileIO {
                                                         item.getItemName()
                                                 ),
                                                 td(
-                                                        String.format("%s", item.getItemValue())
+                                                        String.format("%.2f", item.getItemValue())
                                                 )
                                         ).withStyle("background-color: #f3f3f3;"))
                                 ).withStyle("border-bottom: 2px solid #710793;")
@@ -140,7 +140,7 @@ public class FileIO {
         try (Formatter output = new Formatter(file)) {
             output.format("Serial Number\tItem Name\tItem Value%n");
             for (Item item : itemList) {
-                output.format("%s\t%s\t$%s%n", item.getSerialNumber(), item.getItemName(), item.getItemValue());
+                output.format("%s\t%s\t$%.2f%n", item.getSerialNumber(), item.getItemName(), item.getItemValue());
             }
         } catch (IOException e) {
             System.out.println("Could not write CSV file.");

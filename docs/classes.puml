@@ -7,6 +7,8 @@ InventoryListController -- InventoryList
 InventoryListController -- FileIo
 InventoryManagementApplication -- InventoryListController
 InventoryList -- Item
+InventoryListController -- ValueTableCell
+TableCell -- ValueTableCell
 
 class AddInventoryItemController {
     -InventoryList: inventoryList
@@ -131,5 +133,13 @@ class ItemValidation {
     +boolean: serialNumberFormatCheck(String, InventoryList)
     +boolean: serialNumberFormatCheck(String, String, InventoryList)
     +boolean: itemNameLengthCheck(String)
+}
+
+class ValueTableCell {
+    #void: updateItem(Double, boolean)
+}
+
+class TableCell {
+    #void: updateItem(Double, boolean)
 }
 @enduml

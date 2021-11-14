@@ -49,7 +49,7 @@ class InventoryListTest {
     void editItemValue() {
         //Tests to see if you can edit the item value
         inventoryList.editItem("A-XXX-XXX-XXX", "Name", "A-XXX-XXX-XXX", 30.00);
-        assertEquals(30.00, Double.parseDouble(inventoryList.getInventoryItems().get(0).getItemValue()), 0.001);
+        assertEquals(30.00, inventoryList.getInventoryItems().get(0).getItemValue(), 0.001);
     }
 
     @Test

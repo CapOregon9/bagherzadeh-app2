@@ -52,7 +52,7 @@ public class InventoryListController {
     private TableColumn<Item, String> itemNameColumn;
 
     @FXML
-    private TableColumn<Item, String> itemValueColumn;
+    private TableColumn<Item, Double> itemValueColumn;
 
     @FXML
     private TextField searchTextField;
@@ -243,6 +243,7 @@ public class InventoryListController {
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("itemName"));
         serialNumberColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
         itemValueColumn.setCellValueFactory(new PropertyValueFactory<>("itemValue"));
+        itemValueColumn.setCellFactory(column -> new ValueTableCell());
 
         //initialize table column sort parameters
 
