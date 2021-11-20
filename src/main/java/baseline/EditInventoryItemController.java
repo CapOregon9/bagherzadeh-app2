@@ -100,6 +100,6 @@ public class EditInventoryItemController {
     public void initializeFields() {
         newNameTextField.setText(item.getItemName());
         newSerialNumberTextField.setText(item.getSerialNumber());
-        newItemValueTextField.setText(String.valueOf(item.getItemValue()));
+        newItemValueTextField.setText(String.format("%.2f", item.getItemValue()));
     }
 }
