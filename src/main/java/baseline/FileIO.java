@@ -52,7 +52,9 @@ public class FileIO {
                     if (j % 2 == 0) {
                         itemName = rowItems.get(j - 1).text();
                     } else if (j % 3 == 0){
-                        itemValue = Double.parseDouble(rowItems.get(j - 1).text());
+                        String valueString = rowItems.get(j - 1).text();
+                        valueString = valueString.replace("$", "");
+                        itemValue = Double.parseDouble(valueString);
                     } else {
                         serialNumber = rowItems.get(j - 1).text();
                     }
@@ -124,7 +126,7 @@ public class FileIO {
                                                         item.getItemName()
                                                 ),
                                                 td(
-                                                        String.format("%.2f", item.getItemValue())
+                                                        String.format("$%.2f", item.getItemValue())
                                                 )
                                         ).withStyle("background-color: #f3f3f3;"))
                                 ).withStyle("border-bottom: 2px solid #710793;")
